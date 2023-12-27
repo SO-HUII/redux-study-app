@@ -1,10 +1,9 @@
 // 리덕스 로직 저장 index.js 파일
-import { createSlice } from '@reduxjs/toolkit';
-import { createStore } from 'redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
 const initialState = { counter: 0, showCounter: true };
 
-createSlice({
+const counterSlice = createSlice({
     // 식별자
     name: 'counter',
     initialState,
@@ -24,38 +23,8 @@ createSlice({
     }
 });
 
-const counterReducer = (state = initialState, action) => {
-    if(action.type === 'increment') {
-        return {
-            counter: state.counter + 1,
-            showCounter: state.showCounter
-        };
-    }
-
-    if(action.type === 'increase') {
-        return {
-            counter: state.counter + action.amount,
-            showCounter: state.showCounter
-        };
-    }
-
-    if(action.type === 'decrement') {
-        return {
-            counter: state.counter - 1,
-            showCounter: state.showCounter
-        };
-    }
-
-    if(action.type === 'toggle') {
-        return {
-            showCounter: !state.showCounter,
-            counter: state.counter
-        };
-    }
-
-    return state;
-};
-
-const store = createStore(counterReducer);
+const store = configureStore({
+    reducer: counterSlice.reducer
+});
 
 export default store;
