@@ -1,7 +1,7 @@
 // 리덕스 로직 저장 index.js 파일
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const initialCounterState = { counter: 0, showCounter: true, isAuthenticated: false };
+const initialCounterState = { counter: 0, showCounter: true };
 
 const counterSlice = createSlice({
     // 식별자
@@ -41,8 +41,10 @@ const authSlice = createSlice({
 });
 
 const store = configureStore({
-    counter: counterSlice.reducer
+    reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
 });
 
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
+
 export default store;
